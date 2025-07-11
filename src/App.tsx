@@ -192,7 +192,6 @@ function App() {
               onSelectAnswer={handleSelectAnswer}
               currentBeat={gameState.currentBeat}
               isPlaying={gameState.isPlaying}
-              gameMode={gameState.gameMode}
             />
           </div>
 
@@ -217,6 +216,7 @@ function App() {
               onAction={executeAction}
               currentBeat={gameState.currentBeat}
               isPlaying={gameState.isPlaying}
+              gameMode={gameState.gameMode}
             />
           </div>
         </div>
