@@ -308,7 +308,10 @@ export const useGameState = () => {
       // Check if answer is correct
       const isAnswerCorrect = prev.selectedAnswer !== null && 
         prev.currentQuestion && 
-        prev.currentQuestion.options[prev.selectedAnswer] === prev.currentQuestion.correctAnswer;
+        (prev.currentQuestion.type === 'math' 
+          ? prev.currentQuestion.options[prev.selectedAnswer] === prev.currentQuestion.correctAnswer
+          : prev.currentQuestion.options[prev.selectedAnswer] === prev.currentQuestion.correctAnswer
+        );
 
       if (!isAnswerCorrect) {
         // Wrong answer or no answer

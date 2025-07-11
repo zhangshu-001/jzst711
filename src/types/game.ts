@@ -23,8 +23,8 @@ export interface CharacterState {
 
 export interface Question {
   question: string;
-  options: number[];
-  correctAnswer: number;
+  options: (number | string)[];
+  correctAnswer: number | string;
   timestamp: number;
   type: 'math' | 'english';
 }

@@ -68,9 +68,6 @@ export const useMetronome = ({ bpm, isPlaying, onBeat, onActionSuccess }: Metron
         bgmRef.current.pause();
         bgmRef.current = null;
       }
-      if (clickSoundRef.current) {
-        clickSoundRef.current = null;
-      }
     };
   }, []);
 
@@ -242,10 +239,22 @@ export const useMetronome = ({ bpm, isPlaying, onBeat, onActionSuccess }: Metron
     }
   };
 
+  const playClickSound = () => {
+    try {
+      if (clickSoundRef.current) {
+        clickSoundRef.current.currentTime = 0;
+        clickSoundRef.current.play().catch(console.warn);
+      }
+    } catch (error) {
+      console.warn('Click sound playback failed:', error);
+    }
+  };
+
   return {
     playSuccessSound,
     playErrorSound,
     playCelebrationSound,
-    playPerfectSound
+    playPerfectSound,
+    playClickSound
   };
 };

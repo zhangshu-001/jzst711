@@ -31,7 +31,7 @@ function App() {
   });
 
   // 从同一个hook获取playPerfectSound
-  const { playPerfectSound } = useMetronome({
+  const { playPerfectSound, playClickSound } = useMetronome({
     bpm: 140,
     isPlaying: false, // 这个实例只用于获取音效函数
     onBeat: () => {},
