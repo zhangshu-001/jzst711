@@ -2,7 +2,8 @@ import { useState, useCallback, useRef } from 'react';
 import { GameState, Question, ToastMessage } from '../types/game';
 
 const GAME_CONFIG = {
-  beatsPerCycle: 8,
+  mathBeatsPerCycle: 8,
+  englishBeatsPerCycle: 4,
   bpm: 140,
   gridWidth: 5,
   gridHeight: 3,
@@ -257,7 +258,7 @@ export const useGameState = () => {
     setGameState(prev => {
       if (!prev.isPlaying) return prev;
 
-      const beatsPerCycle = prev.gameMode === 'math' ? GAME_CONFIG.mathBeatsPerCycle : GAME_CONFIG.englishBeatsPerCycle;
+      const beatsPerCycle = prev.gameMode === 'math' ? 8 : 4;
       const newBeat = (prev.currentBeat + 1) % beatsPerCycle;
       
       // 检查是否错过了答题时机（从最后一拍切换到第0拍时）
@@ -300,7 +301,7 @@ export const useGameState = () => {
     const currentTime = Date.now();
     
     setGameState(prev => {
-      const beatsPerCycle = prev.gameMode === 'math' ? GAME_CONFIG.mathBeatsPerCycle : GAME_CONFIG.englishBeatsPerCycle;
+      const beatsPerCycle = prev.gameMode === 'math' ? 8 : 4;
       const actionBeat = beatsPerCycle - 1; // 最后一拍是动作拍
       
       if (!prev.isPlaying || prev.currentBeat !== actionBeat) {
