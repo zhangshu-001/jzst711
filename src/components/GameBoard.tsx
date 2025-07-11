@@ -7,10 +7,7 @@ interface GameBoardProps {
   currentBeat: number;
 }
 
-export const GameBoard: React.FC<GameBoardProps> = ({ grid, character, currentBeat, gameMode }) => {
-  const beatsPerCycle = gameMode === 'math' ? 8 : 4;
-  const actionBeat = beatsPerCycle - 1; // 数学第8拍(索引7)，英语第4拍(索引3)
-
+export const GameBoard: React.FC<GameBoardProps> = ({ grid, character, currentBeat }) => {
   const getCharacterSprite = () => {
     switch (character.action) {
       case 'jump':
@@ -100,10 +97,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({ grid, character, currentBe
         <div className="absolute top-6 right-6">
           <div className={`
             w-6 h-6 lg:w-10 lg:h-10 rounded-full flex items-center justify-center text-lg lg:text-3xl
-            ${currentBeat === actionBeat 
-              ? 'animate-pulse bg-green-400/30 border-2 border-green-400' 
-              : 'bg-gray-600/30 border border-gray-400'
-            }
+            ${currentBeat === 7 ? 'animate-pulse bg-green-400/30 border-2 border-green-400' : 'bg-gray-600/30 border border-gray-400'}
           `}>
             ⚡
           </div>
@@ -112,7 +106,7 @@ export const GameBoard: React.FC<GameBoardProps> = ({ grid, character, currentBe
         {/* Beat progress bar */}
         <div className="absolute bottom-3 lg:bottom-6 left-3 lg:left-6 right-3 lg:right-6">
           <div className="flex space-x-1">
-            {Array.from({ length: beatsPerCycle }, (_, i) => (
+            {Array.from({ length: 8 }, (_, i) => (
               <div
                 key={i}
                 className={`

@@ -207,7 +207,6 @@ function App() {
               grid={gameState.gameGrid}
               character={gameState.character}
               currentBeat={gameState.currentBeat}
-              gameMode={gameState.gameMode}
             />
           </div>
 
@@ -217,7 +216,6 @@ function App() {
               onAction={executeAction}
               currentBeat={gameState.currentBeat}
               isPlaying={gameState.isPlaying}
-              gameMode={gameState.gameMode}
             />
           </div>
         </div>

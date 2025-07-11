@@ -8,7 +8,6 @@ interface QuestionPanelProps {
   onSelectAnswer: (answerIndex: number) => void;
   currentBeat: number;
   isPlaying: boolean;
-  gameMode: 'math' | 'english';
 }
 
 export const QuestionPanel: React.FC<QuestionPanelProps> = ({
@@ -16,14 +15,8 @@ export const QuestionPanel: React.FC<QuestionPanelProps> = ({
   selectedAnswer,
   onSelectAnswer,
   currentBeat,
-  isPlaying,
-  gameMode
+  isPlaying
 }) => {
-  // 根据游戏模式确定节拍数和答题阶段
-  const beatsPerCycle = gameMode === 'math' ? 8 : 4;
-  const answerPhaseEnd = beatsPerCycle - 1; // 数学前7拍(0-6)，英语前3拍(0-2)
-  const isAnswerPhase = currentBeat < answerPhaseEnd;
-
   if (!question) {
     return (
       <div className="cyberpunk-panel min-h-[280px] lg:min-h-[400px] lg:h-full flex flex-col">
@@ -31,12 +24,13 @@ export const QuestionPanel: React.FC<QuestionPanelProps> = ({
           <p className="text-cyan-400 text-lg">等待题目...</p>
         </div>
         <div className="mt-4">
-          <Metronome currentBeat={currentBeat} isPlaying={isPlaying} gameMode={gameMode} />
+          <Metronome currentBeat={currentBeat} isPlaying={isPlaying} />
         </div>
       </div>
     );
   }
 
+  const isAnswerPhase = currentBeat < 7;
 
   return (
     <div className="cyberpunk-panel min-h-[280px] lg:min-h-[400px] lg:h-full flex flex-col p-3 lg:p-6">
@@ -71,7 +65,7 @@ export const QuestionPanel: React.FC<QuestionPanelProps> = ({
 
       {/* 节拍器 */}
       <div className="mt-2">
-        <Metronome currentBeat={currentBeat} isPlaying={isPlaying} gameMode={gameMode} />
+        <Metronome currentBeat={currentBeat} isPlaying={isPlaying} />
       </div>
     </div>
   );
