@@ -15,7 +15,7 @@ export const ActionPanel: React.FC<ActionPanelProps> = ({
   gameMode
 }) => {
   const beatsPerCycle = gameMode === 'math' ? 8 : 4;
-  const actionBeat = beatsPerCycle - 1; // 最后一拍是动作拍
+  const actionBeat = beatsPerCycle - 1; // 数学第8拍(索引7)，英语第4拍(索引3)
   const isActionBeat = currentBeat === actionBeat;
 
   return (

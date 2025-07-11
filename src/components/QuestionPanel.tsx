@@ -21,7 +21,7 @@ export const QuestionPanel: React.FC<QuestionPanelProps> = ({
 }) => {
   // 根据游戏模式确定节拍数和答题阶段
   const beatsPerCycle = gameMode === 'math' ? 8 : 4;
-  const answerPhaseEnd = beatsPerCycle - 1; // 答题阶段到倒数第二拍结束
+  const answerPhaseEnd = beatsPerCycle - 1; // 数学前7拍(0-6)，英语前3拍(0-2)
   const isAnswerPhase = currentBeat < answerPhaseEnd;
 
   if (!question) {
