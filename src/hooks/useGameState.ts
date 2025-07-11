@@ -257,10 +257,12 @@ export const useGameState = () => {
     setGameState(prev => {
       if (!prev.isPlaying) return prev;
 
-      const newBeat = (prev.currentBeat + 1) % GAME_CONFIG.beatsPerCycle;
+      const beatsPerCycle = prev.gameMode === 'math' ? GAME_CONFIG.mathBeatsPerCycle : GAME_CONFIG.englishBeatsPerCycle;
+      const newBeat = (prev.currentBeat + 1) % beatsPerCycle;
       
-      // 检查是否错过了答题时机（从第7拍切换到第0拍时）
-      const missedAnswering = prev.currentBeat === 7 && newBeat === 0;
+      // 检查是否错过了答题时机（从最后一拍切换到第0拍时）
+      const lastBeat = beatsPerCycle - 1;
+      const missedAnswering = prev.currentBeat === lastBeat && newBeat === 0;
       
       let newState = {
         ...prev,
@@ -298,7 +300,10 @@ export const useGameState = () => {
     const currentTime = Date.now();
     
     setGameState(prev => {
-      if (!prev.isPlaying || prev.currentBeat !== 7) {
+      const beatsPerCycle = prev.gameMode === 'math' ? GAME_CONFIG.mathBeatsPerCycle : GAME_CONFIG.englishBeatsPerCycle;
+      const actionBeat = beatsPerCycle - 1; // 最后一拍是动作拍
+      
+      if (!prev.isPlaying || prev.currentBeat !== actionBeat) {
         return prev;
       }
 

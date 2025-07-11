@@ -3,28 +3,32 @@ import React from 'react';
 interface MetronomeProps {
   currentBeat: number;
   isPlaying: boolean;
+  gameMode: 'math' | 'english';
 }
 
-export const Metronome: React.FC<MetronomeProps> = ({ currentBeat, isPlaying }) => {
+export const Metronome: React.FC<MetronomeProps> = ({ currentBeat, isPlaying, gameMode }) => {
+  const beatsPerCycle = gameMode === 'math' ? 8 : 4;
+  const actionBeat = beatsPerCycle - 1; // 最后一拍是动作拍
+  
   return (
     <div className="cyberpunk-panel p-2">
       <div className="text-center mb-2">
         <h3 className="text-xs font-bold text-cyan-400 mb-1">节拍器</h3>
         <div className="text-sm font-bold text-white">
-          {currentBeat + 1}/8
+          {currentBeat + 1}/{beatsPerCycle}
         </div>
       </div>
       
       {/* 节拍指示器 */}
-      <div className="grid grid-cols-4 gap-1 mb-2">
-        {Array.from({ length: 8 }, (_, i) => (
+      <div className={`grid gap-1 mb-2 ${beatsPerCycle === 8 ? 'grid-cols-4' : 'grid-cols-2'}`}>
+        {Array.from({ length: beatsPerCycle }, (_, i) => (
           <div
             key={i}
             className={`
               w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold
               transition-all duration-150
               ${currentBeat === i
-                ? i === 7 
+                ? i === actionBeat 
                   ? 'bg-green-400 text-gray-800 shadow-lg shadow-green-400/50' // 动作拍
                   : 'bg-cyan-400 text-gray-800 shadow-lg shadow-cyan-400/50'
                 : currentBeat > i
@@ -43,13 +47,13 @@ export const Metronome: React.FC<MetronomeProps> = ({ currentBeat, isPlaying }) 
       <div className="text-center">
         {isPlaying ? (
           <div className={`text-xs font-medium ${
-            currentBeat === 7 
+            currentBeat === actionBeat 
               ? 'text-green-300' 
-              : currentBeat < 7 
+              : currentBeat < actionBeat 
               ? 'text-cyan-300' 
               : 'text-purple-300'
           }`}>
-            {currentBeat === 7 ? '⚡ 动作时间' : currentBeat < 7 ? '📝 答题时间' : '⏳ 准备中'}
+            {currentBeat === actionBeat ? '⚡ 动作时间' : currentBeat < actionBeat ? '📝 答题时间' : '⏳ 准备中'}
           </div>
         ) : (
           <div className="text-xs text-gray-400">

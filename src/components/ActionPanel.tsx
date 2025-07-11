@@ -5,14 +5,18 @@ interface ActionPanelProps {
   onAction: (action: 'jump' | 'forward' | 'crouch') => void;
   currentBeat: number;
   isPlaying: boolean;
+  gameMode: 'math' | 'english';
 }
 
 export const ActionPanel: React.FC<ActionPanelProps> = ({
   onAction,
   currentBeat,
-  isPlaying
+  isPlaying,
+  gameMode
 }) => {
-  const isActionBeat = currentBeat === 7;
+  const beatsPerCycle = gameMode === 'math' ? 8 : 4;
+  const actionBeat = beatsPerCycle - 1; // 最后一拍是动作拍
+  const isActionBeat = currentBeat === actionBeat;
 
   return (
     <div className="cyberpunk-panel min-h-[280px] lg:min-h-[400px] lg:h-full flex flex-col p-3 lg:p-6">
