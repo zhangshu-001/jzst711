@@ -57,7 +57,7 @@ function App() {
   const handleSelectAnswer = (answerIndex: number) => {
     selectAnswer(answerIndex);
     
-    // 只播放点击音效，不显示正确/错误提示
+    // 只播放选中音效，不显示正确/错误提示
     playClickSound();
   };
 

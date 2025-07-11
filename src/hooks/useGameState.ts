@@ -125,8 +125,9 @@ const generateEnglishQuestion = (): Question => {
     const wrongWord = wrongWords[Math.floor(Math.random() * wrongWords.length)];
     
     const allOptions = [word.english, wrongWord.english];
-    options = allOptions.sort(() => Math.random() - 0.5);
-    correctAnswer = options.indexOf(word.english);
+    const shuffledOptions = allOptions.sort(() => Math.random() - 0.5);
+    options = shuffledOptions as any;
+    correctAnswer = word.english as any;
   } else {
     // 英译中
     question = `"${word.english}" 的中文是？`;
@@ -136,8 +137,9 @@ const generateEnglishQuestion = (): Question => {
     const wrongWord = wrongWords[Math.floor(Math.random() * wrongWords.length)];
     
     const allOptions = [word.chinese, wrongWord.chinese];
-    options = allOptions.sort(() => Math.random() - 0.5);
-    correctAnswer = options.indexOf(word.chinese);
+    const shuffledOptions = allOptions.sort(() => Math.random() - 0.5);
+    options = shuffledOptions as any;
+    correctAnswer = word.chinese as any;
   }
   
   return {
@@ -308,10 +310,7 @@ export const useGameState = () => {
       // Check if answer is correct
       const isAnswerCorrect = prev.selectedAnswer !== null && 
         prev.currentQuestion && 
-        (prev.currentQuestion.type === 'math' 
-          ? prev.currentQuestion.options[prev.selectedAnswer] === prev.currentQuestion.correctAnswer
-          : prev.currentQuestion.options[prev.selectedAnswer] === prev.currentQuestion.correctAnswer
-        );
+        prev.currentQuestion.options[prev.selectedAnswer] === prev.currentQuestion.correctAnswer;
 
       if (!isAnswerCorrect) {
         // Wrong answer or no answer

@@ -42,14 +42,14 @@ export const QuestionPanel: React.FC<QuestionPanelProps> = ({
       </div>
 
       {/* Answer Options */}
-      <div className="space-y-2 lg:space-y-6 flex-1">
+      <div className="space-y-2 lg:space-y-4 flex-1">
         {question.options.map((option, index) => (
           <button
             key={index}
             onClick={() => isAnswerPhase && onSelectAnswer(index)}
             disabled={!isAnswerPhase}
             className={`
-              w-full p-3 lg:p-8 rounded-lg font-bold text-lg lg:text-3xl transition-all duration-300
+              w-full p-2 lg:p-6 rounded-lg font-bold text-base lg:text-2xl transition-all duration-300
               border-2 cyberpunk-button
               ${!isAnswerPhase ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'}
               ${selectedAnswer === index
@@ -64,7 +64,7 @@ export const QuestionPanel: React.FC<QuestionPanelProps> = ({
       </div>
 
       {/* 节拍器 */}
-      <div className="mt-4">
+      <div className="mt-2">
         <Metronome currentBeat={currentBeat} isPlaying={isPlaying} />
       </div>
     </div>
