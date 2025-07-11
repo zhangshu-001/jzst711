@@ -57,11 +57,8 @@ function App() {
   const handleSelectAnswer = (answerIndex: number) => {
     selectAnswer(answerIndex);
     
-    // 立即播放音效反馈
-    if (gameState.currentQuestion) {
-      const isCorrect = gameState.currentQuestion.options[answerIndex] === gameState.currentQuestion.correctAnswer;
-      playImmediateSound(isCorrect ? 'success' : 'error');
-    }
+    // 只播放点击音效，不显示正确/错误提示
+    playClickSound();
   };
 
   useEffect(() => {

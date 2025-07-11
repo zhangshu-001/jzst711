@@ -11,6 +11,7 @@ export const useMetronome = ({ bpm, isPlaying, onBeat, onActionSuccess }: Metron
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const bgmRef = useRef<HTMLAudioElement | null>(null);
+  const clickSoundRef = useRef<HTMLAudioElement | null>(null);
   
   // 使用140 BPM作为节拍器速度
   const metronomeBpm = 140;
@@ -22,6 +23,12 @@ export const useMetronome = ({ bpm, isPlaying, onBeat, onActionSuccess }: Metron
       bgmRef.current.loop = true;
       bgmRef.current.volume = 0.3;
       // BGM保持原速度，不受节拍器影响
+    }
+    
+    // Initialize click sound
+    if (!clickSoundRef.current) {
+      clickSoundRef.current = new Audio('https://p.gsxcdn.com/3078794411_swf0qamj.mp3');
+      clickSoundRef.current.volume = 0.5;
     }
 
     if (isPlaying) {
@@ -60,6 +67,9 @@ export const useMetronome = ({ bpm, isPlaying, onBeat, onActionSuccess }: Metron
       if (bgmRef.current) {
         bgmRef.current.pause();
         bgmRef.current = null;
+      }
+      if (clickSoundRef.current) {
+        clickSoundRef.current = null;
       }
     };
   }, []);
